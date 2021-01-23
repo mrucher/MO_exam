@@ -47,6 +47,20 @@ namespace MO_Lab2
             {
                 Console.WriteLine(x[i]);
             }
+
+            Console.WriteLine("______________");
+            
+            
+            double[][] A = Reverse.reverse(3, matrix);
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Console.Write($" {A[i][j]} ");
+                }
+                Console.WriteLine();
+            }
+
         }
     }
 }
