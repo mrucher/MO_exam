@@ -2,7 +2,7 @@
 {
     public class SolverEquation
     {
-        public static double[] solv_L(int n, double[][] L, double[] b)
+        public static double[] solve_L(int n, double[][] L, double[] b)
         {
             double[] y = new double[n];
 
@@ -19,7 +19,7 @@
             return y;
         }
         
-        public static double[] solv_U(int n, double[][] U, double[] y)
+        public static double[] solve_U(int n, double[][] U, double[] y)
         {
             double[] x = new double[n];
 
@@ -38,7 +38,7 @@
 
         public static double[] solve(int n, Matrix M, double[] b)
         {
-            return solv_U(n, M.U_matrix, solv_L(n, M.L_matrix, b));
+            return solve_U(n, M.U_matrix, solve_L(n, M.L_matrix, b));
         }
         
     }
