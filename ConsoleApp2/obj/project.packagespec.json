@@ -1,0 +1,46 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "C:\\Users\\Unknowns41\\Desktop\\3 курс\\MO\\ConsoleApp2\\ConsoleApp2\\ConsoleApp2.csproj",
+    "projectName": "ConsoleApp2",
+    "projectPath": "C:\\Users\\Unknowns41\\Desktop\\3 курс\\MO\\ConsoleApp2\\ConsoleApp2\\ConsoleApp2.csproj",
+    "outputPath": "C:\\Users\\Unknowns41\\Desktop\\3 курс\\MO\\ConsoleApp2\\ConsoleApp2\\obj\\",
+    "projectStyle": "PackageReference",
+    "originalTargetFrameworks": [
+      "netcoreapp3.0"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp3.0": {
+        "projectReferences": {}
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp3.0": {
+      "imports": [
+        "net461",
+        "net462",
+        "net47",
+        "net471",
+        "net472",
+        "net48"
+      ],
+      "assetTargetFallback": true,
+      "warn": true,
+      "frameworkReferences": {
+        "Microsoft.NETCore.App": {
+          "privateAssets": "all"
+        }
+      },
+      "runtimeIdentifierGraphPath": "C:\\Users\\Unknowns41\\.dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+    }
+  }
+}
