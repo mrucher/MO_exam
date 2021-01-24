@@ -17,16 +17,46 @@ namespace MO_Lab2
             this.n = n;
             matrix = new double[n][];
             int counter = 0;
-            //double[] row;
             for (int i = 0; i < n; i++)
             {
-                //row = new double[n];
                 matrix[i] = new double[n];
                 for (var j = 0; j < n; j++)
                 {
                     matrix[i][j] = doubleArr[counter++];
                 }
-                //this.matrix[i] = row;
+            }
+        }
+        public Matrix(int n, bool isHilbert = false)
+        {
+            this.n = n;
+            matrix = new double[n][];
+
+            if (isHilbert)
+            {
+                for (var i = 0; i < n; i++)
+                {
+                    matrix[i] = new double[n];
+                    for (var j = 0; j < n; j++)
+                    {
+                        matrix[i][j] = (1.0 / (i + j + 1));
+                    }
+                }
+            }
+            else
+            {
+                var rand = new Random();
+                for (var i = 0; i < n; i++)
+                {
+                    matrix[i] = new double[n];
+                    for (var j = 0; j < n; j++)
+                    {
+                        matrix[i][j] = rand.Next(-4, 0);
+                    }
+                }
+                for (var i = 0; i < n; i++)
+                {
+                    matrix[i][i] = -(matrix[i].Sum() - matrix[i][i]) + Math.Pow(10, -n);
+                }
             }
         }
 
@@ -70,7 +100,7 @@ namespace MO_Lab2
             {
                 for (int j = 0; j < n; j++)
                 {
-                    Console.Write($" {matrix[i][j]} ");
+                    Console.Write($" {Math.Round(matrix[i][j], 3)} ");
                 }
                 Console.WriteLine();
             }
