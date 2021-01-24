@@ -9,7 +9,7 @@ namespace MO_Lab2
     public class Matrix
     {
         int n;
-        double[][] matrix;
+        public double[][] matrix;
         public double[][] L_matrix;
         public double[][] U_matrix;
         public Matrix(int n, double[] doubleArr)
@@ -25,6 +25,12 @@ namespace MO_Lab2
                     matrix[i][j] = doubleArr[counter++];
                 }
             }
+        }
+        
+        public Matrix(int n, double[][] matrix)
+        {
+            this.n = n;
+            this.matrix = matrix;
         }
         public Matrix(int n, bool isHilbert = false)
         {
@@ -62,8 +68,17 @@ namespace MO_Lab2
 
         public void LU()
         {
-            U_matrix = matrix;
+            //U_matrix = matrix;
             L_matrix = new double[n][];
+            U_matrix = new double[n][];
+            for (int i = 0; i < n; i++)
+            {
+                U_matrix[i] = new double[n];
+                for (int j = 0; j < n; j++)
+                {
+                    U_matrix[i][j] = matrix[i][j];
+                }
+            }
 
             for (int i = 0; i < n; i++)
             {
@@ -100,7 +115,8 @@ namespace MO_Lab2
             {
                 for (int j = 0; j < n; j++)
                 {
-                    Console.Write($" {Math.Round(matrix[i][j], 3)} ");
+                    //Console.Write($" {Math.Round(matrix[i][j], 3)} ");
+                    Console.Write($"{matrix[i][j]:0.0000}" + "  ");
                 }
                 Console.WriteLine();
             }
@@ -120,6 +136,22 @@ namespace MO_Lab2
         {
             show(matrix);
         }
-        
+
+        public static double[] mulOnVec(int n, double[][] m, double[] a)
+        {
+            double[] res = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                res[i] = 0;
+                for (int j = 0; j < n; j++)
+                {
+                    res[i] += m[i][j] * a[j];
+                }
+
+            }
+
+            return res;
+        }
+
     }
 }

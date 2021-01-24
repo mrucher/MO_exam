@@ -1,5 +1,4 @@
-﻿﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,95 +7,94 @@ using System.Threading.Tasks;
 namespace MO_Lab2
 {
     class Program
-    {    
+    {
         static void Main(string[] args)
         {
-            //var matrix = new Matrix(3, new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 8 });
-            // var matrix = new Matrix(4, new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 11, 12, 13, 14, 15, 15 });
-            Console.WriteLine("Матрица Гильберта");
-            var matrix = new Matrix(5, true);
             
-            Console.WriteLine("Initial Matrix");
-            matrix.showMatrix();
-            Console.WriteLine("----------------------");
-
-            matrix.LU();
-            Console.WriteLine("L Matrix");
-            matrix.showL();
-            Console.WriteLine("----------------------");
-
-            Console.WriteLine("U Matrix");
-            matrix.showU();
-            Console.WriteLine("----------------------");
-
-            double[] x = SolverEquation.solve(3, matrix, new double[] {1, 2, 3});
-            for (int i = 0; i < 3; i++)
+            Console.WriteLine("Матрицы Гильберта");
+            for (int k = 2; k < 9; k++)
             {
-                Console.WriteLine(x[i]);
-            }
+                var matrix = new Matrix(k, true);
+                matrix.LU();
+                Console.WriteLine("-----------------");
+                matrix.showMatrix();
+                Console.WriteLine("-----------------");
+                Console.WriteLine("xs:");
 
-            Console.WriteLine("______________");
-            
-            
-            double[][] A = Reverse.reverse(3, matrix);
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
+                double[] xx = new double[k];
+                for (int i = 0; i < k; i++)
                 {
-                    Console.Write($" {A[i][j]} ");
+                    xx[i] = i+1;
                 }
-                Console.WriteLine();
-            }
 
-            Console.WriteLine("Матрица с диагональным преобладанием");
-            var matrix2 = new Matrix(5);
-
-            Console.WriteLine("Initial Matrix");
-            matrix2.showMatrix();
-            Console.WriteLine("----------------------");
-
-            matrix2.LU();
-            Console.WriteLine("L Matrix");
-            matrix2.showL();
-            Console.WriteLine("----------------------");
-
-            Console.WriteLine("U Matrix");
-            matrix2.showU();
-            Console.WriteLine("----------------------");
-
-            double[] x2 = SolverEquation.solve(3, matrix, new double[] { 1, 2, 3 });
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(x[i]);
-            }
-
-            Console.WriteLine("______________");
-
-
-            double[][] A2 = Reverse.reverse(3, matrix);
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
+                var F = Matrix.mulOnVec(k, matrix.matrix, xx);
+                var x = SolverEquation.solve(k, matrix, F);
+                for (int i = 0; i < k; i++)
                 {
-                    Console.Write($" {A[i][j]} ");
+                    Console.WriteLine(x[i]);
                 }
+
                 Console.WriteLine();
+                Console.WriteLine("MSE = " + mse(k, x, xx));
+                Console.WriteLine("===============");
+            }
+            
+            
+            Console.WriteLine("Матрицы с диагональным преобладанием");
+            for (int k = 2; k < 9; k++)
+            {
+                var matrix = new Matrix(k, false);
+                matrix.LU();
+                Console.WriteLine("-----------------");
+                matrix.showMatrix();
+                Console.WriteLine("-----------------");
+                Console.WriteLine("xs:");
+
+                double[] xx = new double[k];
+                for (int i = 0; i < k; i++)
+                {
+                    xx[i] = i+1;
+                }
+
+                var F = Matrix.mulOnVec(k, matrix.matrix, xx);
+                var x = SolverEquation.solve(k, matrix, F);
+                for (int i = 0; i < k; i++)
+                {
+                    Console.WriteLine(x[i]);
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("MSE = " + mse(k, x, xx));
+                Console.WriteLine("===============");
             }
 
-            /* double[] t = SolverEquation.solv_L(3, matrix.L_matrix, new double[] {1, 2, 3});
 
- for (int i = 0; i < 3; i++)
- {
-     Console.WriteLine(t[i]);
- }
+            Console.WriteLine("Транспонирование матрицы:");
+            var m = new Matrix(3, new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 8 });
+            m.LU();
+            Console.WriteLine("-----------------");
+            m.showMatrix();
+            Console.WriteLine("-----------------");
+            
+            Matrix transp = new Matrix(3,Reverse.reverse(3, m));
+            Console.WriteLine("-----------------");
+            transp.showMatrix();
+            Console.WriteLine("-----------------");
 
- Console.WriteLine("_____________");
- double[] q = SolverEquation.solv_U(3, matrix.U_matrix, t);
- for (int i = 0; i < 3; i++)
- {
-     Console.WriteLine(q[i]);
- }*/
-            //Console.ReadKey();
+        }
+
+        public static double mse(int n, double[] x, double[] xx)
+        {
+            double res = 0;
+            for (int i = 0; i < n; i++)
+            {
+                res += (x[i] - xx[i]) * (x[i] - xx[i]);
+            }
+
+            res /= n;
+            res = Math.Sqrt(res);
+
+            return res;
         }
     }
 }
